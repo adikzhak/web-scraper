@@ -1,21 +1,15 @@
 import requests as req
 from bs4 import BeautifulSoup
 
-# part 0
-
 def request_github_trending(url):
     r = req.get(url)
     Request = r.text
     return Request
 
-# part 1
-
 def extract(page):
     soup = BeautifulSoup(page, 'html.parser')
     rows = soup.find_all('article', {'class': 'Box-row'})
     return rows
-
-# part 2
 
 def transform(html_repos):
     data = []
@@ -30,17 +24,12 @@ def transform(html_repos):
         })
     return data
 
-# part 3
-
 def format(repositories_data):
     output = ['Developer, Repository name, Number of stars'] 
     for data in repositories_data:
         line = [data['developer'], data['repository_name'], data['nbr_stars']]
         output.append(', '.join(line))
     return "\n".join(output)
-
-# To testing the code, please, uncomment one of 51 - 54 (function_name)line or uncomment all of them ;)
-# and to run the code write "python my_first_scraper.py" on terminal
 
 if __name__ == "__main__":
     url = 'https://github.com/trending'
